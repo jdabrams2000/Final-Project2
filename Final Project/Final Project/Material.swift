@@ -16,6 +16,18 @@ enum MaterialType {
     }
 }
 
+enum WeatherType {
+    case wind, water, bug, fire, electric, acid
+    
+    static func weak() -> [[WeatherType]] {
+        return [[acid], [], [fire, electric, bug, acid], [fire], [water, acid], [electric, water, acid]]
+    }
+    
+    static func resist() -> [[WeatherType]] {
+        return [[fire, wind], [wind, fire], [water], [electric, acid, water], [], [fire, bug]]
+    }
+}
+
 var masses = [45, 40, 20, 30, 40, 45]
 var strengths = [65, 60, 35, 30, 45, 70]
 var costs = [40, 20, 50, 35, 45, 70]

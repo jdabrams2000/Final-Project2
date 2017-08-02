@@ -337,7 +337,7 @@ class GameScene: SKScene {
         
         for t in touches {
             let node = atPoint(t.location(in: self))
-            if node.name != "background" && node.name != "sidebar2" && node.name != "sidebar" {
+            if node.name == "stone" || node.name == "brick" || node.name == "thatch" || node.name == "ice" || node.name == "marble" || node.name == "copper" {
                 node.position = t.location(in: self)
             }
         }
