@@ -18,10 +18,17 @@ class GameScene: SKScene {
     var massLabel: SKLabelNode!
     var strengthLabel: SKLabelNode!
     var costLabel: SKLabelNode!
+    var labels2: SKLabelNode!
+    var massLabel2: SKLabelNode!
+    var strengthLabel2: SKLabelNode!
+    var costLabel2: SKLabelNode!
     
     var bottomMass = 0
     var bottomStrength = 0
     var bottomCost = 0
+    var topMass = 0
+    var topStrength = 0
+    var topCost = 0
     
     var frames = 0
     var bottomMaterialArray: [SKNode] = []
@@ -57,9 +64,13 @@ class GameScene: SKScene {
     
     override func didMove(to view: SKView) {
         labels = childNode(withName: "labels") as! SKLabelNode
-        massLabel = childNode(withName: "massLabel") as! SKLabelNode
-        strengthLabel = childNode(withName: "strengthLabel") as! SKLabelNode
-        costLabel = childNode(withName: "costLabel") as! SKLabelNode
+        massLabel = childNode(withName: "//massLabel") as! SKLabelNode
+        costLabel = childNode(withName: "//costLabel") as! SKLabelNode
+        strengthLabel = childNode(withName: "//strengthLabel") as! SKLabelNode
+        labels2 = childNode(withName: "labels2") as! SKLabelNode
+        massLabel2 = childNode(withName: "//massLabel2") as! SKLabelNode
+        costLabel2 = childNode(withName: "//costLabel2") as! SKLabelNode
+        strengthLabel2 = childNode(withName: "//strengthLabel2") as! SKLabelNode
         stone = childNode(withName: "stone") as! SKSpriteNode
         brick = childNode(withName: "brick") as! SKSpriteNode
         thatch = childNode(withName: "thatch") as! SKSpriteNode
@@ -243,6 +254,16 @@ class GameScene: SKScene {
         massLabel.text = String(bottomMass)
         strengthLabel.text = String(bottomStrength)
         costLabel.text = String(bottomCost)
+        for material in top {
+            print(material.toString())
+            topMass = topMass + material.mass
+            topStrength = topStrength + material.strength
+            topCost = topCost +  material.cost
+        }
+        labels2.zPosition = 2
+        massLabel2.text = String(topMass)
+        strengthLabel2.text = String(topStrength)
+        costLabel2.text = String(topCost)
     }
     
     func callTornado() {
@@ -354,7 +375,7 @@ class GameScene: SKScene {
         for material in bottomMaterialArray {
             material.physicsBody?.applyForce(CGVector(dx: 0, dy: -250))
         }
-        if frames == 1800 {
+        if frames == 1000 {
             callAntiGravity()
             scoring()
         }
