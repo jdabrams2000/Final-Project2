@@ -17,6 +17,8 @@ class GameScene: SKScene {
     var frames = 0
     var bottomMaterialArray: [SKNode] = []
     var topMaterialArray: [SKNode] = []
+    var bottom: [Material] = []
+    var top: [Material] = []
     let tornadoTop = SKFieldNode.vortexField()
     let tornadoBottom = SKFieldNode.vortexField()
     let antiGravity = SKFieldNode.radialGravityField()
@@ -283,7 +285,6 @@ class GameScene: SKScene {
                 node.position = t.location(in: self)
             }
         }
-        
 //        let nodeAtPoint = atPoint(location)
 //        if location.y <= 0 && location.x >= 235.769 {
 //            if nodeAtPoint.name != "sidebar" {
