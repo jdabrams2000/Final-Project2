@@ -19,6 +19,7 @@ class GameScene: SKScene {
     var topMaterialArray: [SKNode] = []
     var bottom: [Material] = []
     var top: [Material] = []
+    let materials = MaterialType.allValues()
     let tornadoTop = SKFieldNode.vortexField()
     let tornadoBottom = SKFieldNode.vortexField()
     let antiGravity = SKFieldNode.radialGravityField()
@@ -61,6 +62,7 @@ class GameScene: SKScene {
                 newStone.position.y = 40
                 self.bottomMaterialArray.append(newStone)
                 self.bottomCount = self.bottomCount - 1
+                self.bottom.append(Material(material: self.materials[0]))
             }
         }
         brickIcon = childNode(withName: "//brickIcon") as! MSButtonNode
@@ -72,6 +74,7 @@ class GameScene: SKScene {
                 newBrick.position.y = 40
                 self.bottomMaterialArray.append(newBrick)
                 self.bottomCount = self.bottomCount - 1
+                self.bottom.append(Material(material: self.materials[1]))
             }
         }
         thatchIcon = childNode(withName: "//thatchIcon") as! MSButtonNode
@@ -83,6 +86,7 @@ class GameScene: SKScene {
                 newThatch.position.y = 40
                 self.bottomMaterialArray.append(newThatch)
                 self.bottomCount = self.bottomCount - 1
+                self.bottom.append(Material(material: self.materials[2]))
             }
         }
         iceIcon = childNode(withName: "//iceIcon") as! MSButtonNode
@@ -94,6 +98,7 @@ class GameScene: SKScene {
                 newIce.position.y = 40
                 self.bottomMaterialArray.append(newIce)
                 self.bottomCount = self.bottomCount - 1
+                self.bottom.append(Material(material: self.materials[3]))
             }
         }
         marbleIcon = childNode(withName: "//marbleIcon") as! MSButtonNode
@@ -105,6 +110,7 @@ class GameScene: SKScene {
                 newMarble.position.y = 40
                 self.bottomMaterialArray.append(newMarble)
                 self.bottomCount = self.bottomCount - 1
+                self.bottom.append(Material(material: self.materials[4]))
             }
         }
         copperIcon = childNode(withName: "//copperIcon") as! MSButtonNode
@@ -116,6 +122,7 @@ class GameScene: SKScene {
                 newCopper.position.y = 40
                 self.bottomMaterialArray.append(newCopper)
                 self.bottomCount = self.bottomCount - 1
+                self.bottom.append(Material(material: self.materials[5]))
             }
         }
         stoneIcon2 = childNode(withName: "//stoneIcon2") as! MSButtonNode
@@ -127,6 +134,7 @@ class GameScene: SKScene {
                 newStone.position.y = 1300
                 self.topMaterialArray.append(newStone)
                 self.topCount = self.topCount - 1
+                self.top.append(Material(material: self.materials[0]))
             }
         }
         brickIcon2 = childNode(withName: "//brickIcon2") as! MSButtonNode
@@ -138,6 +146,7 @@ class GameScene: SKScene {
                 newBrick.position.y = 1300
                 self.topMaterialArray.append(newBrick)
                 self.topCount = self.topCount - 1
+                self.top.append(Material(material: self.materials[1]))
             }
         }
         thatchIcon2 = childNode(withName: "//thatchIcon2") as! MSButtonNode
@@ -149,6 +158,7 @@ class GameScene: SKScene {
                 newThatch.position.y = 1300
                 self.topMaterialArray.append(newThatch)
                 self.topCount = self.topCount - 1
+                self.top.append(Material(material: self.materials[2]))
             }
         }
         iceIcon2 = childNode(withName: "//iceIcon2") as! MSButtonNode
@@ -160,6 +170,7 @@ class GameScene: SKScene {
                 newIce.position.y = 1300
                 self.topMaterialArray.append(newIce)
                 self.topCount = self.topCount - 1
+                self.top.append(Material(material: self.materials[3]))
             }
         }
         marbleIcon2 = childNode(withName: "//marbleIcon2") as! MSButtonNode
@@ -171,6 +182,7 @@ class GameScene: SKScene {
                 newMarble.position.y = 1300
                 self.topMaterialArray.append(newMarble)
                 self.topCount = self.topCount - 1
+                self.top.append(Material(material: self.materials[4]))
             }
         }
         copperIcon2 = childNode(withName: "//copperIcon2") as! MSButtonNode
@@ -182,6 +194,7 @@ class GameScene: SKScene {
                 newCopper.position.y = 1300
                 self.topMaterialArray.append(newCopper)
                 self.topCount = self.topCount - 1
+                self.top.append(Material(material: self.materials[5]))
             }
         }
         
