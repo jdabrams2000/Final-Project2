@@ -11,8 +11,17 @@ import GameplayKit
 
 class GameScene: SKScene {
     
-    private var label : SKLabelNode?
+    
     private var spinnyNode : SKShapeNode?
+    
+    var labels: SKLabelNode!
+    var massLabel: SKLabelNode!
+    var strengthLabel: SKLabelNode!
+    var costLabel: SKLabelNode!
+    
+    var bottomMass = 0
+    var bottomStrength = 0
+    var bottomCost = 0
     
     var frames = 0
     var bottomMaterialArray: [SKNode] = []
@@ -47,6 +56,10 @@ class GameScene: SKScene {
     var copper: SKSpriteNode!
     
     override func didMove(to view: SKView) {
+        labels = childNode(withName: "labels") as! SKLabelNode
+        massLabel = childNode(withName: "massLabel") as! SKLabelNode
+        strengthLabel = childNode(withName: "strengthLabel") as! SKLabelNode
+        costLabel = childNode(withName: "costLabel") as! SKLabelNode
         stone = childNode(withName: "stone") as! SKSpriteNode
         brick = childNode(withName: "brick") as! SKSpriteNode
         thatch = childNode(withName: "thatch") as! SKSpriteNode
@@ -219,6 +232,19 @@ class GameScene: SKScene {
 //       }
     }
     
+    func scoring() {
+        for material in bottom {
+            print(material.toString())
+            bottomMass = bottomMass + material.mass
+            bottomStrength = bottomStrength + material.strength
+            bottomCost = bottomCost +  material.cost
+        }
+        labels.zPosition = 2
+        massLabel.text = String(bottomMass)
+        strengthLabel.text = String(bottomStrength)
+        costLabel.text = String(bottomCost)
+    }
+    
     func callTornado() {
         print("Tornado")
         tornadoBottom.strength = 50
@@ -281,10 +307,6 @@ class GameScene: SKScene {
     }
     
     override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
-        if let label = self.label {
-            label.run(SKAction.init(named: "Pulse")!, withKey: "fadeInOut")
-        }
-        
         for t in touches { self.touchDown(atPoint: t.location(in: self)) }
     }
     
@@ -334,6 +356,7 @@ class GameScene: SKScene {
         }
         if frames == 1800 {
             callAntiGravity()
+            scoring()
         }
     }
 }

@@ -34,6 +34,6 @@ class Material {
     }
     
     func toString() -> String {
-        return "\(self.materialType) has a mass of \(mass), a strength of \(strength) and a cost of $\(cost)"
+        return "\(materialType) has a mass of \(mass), a strength of \(strength) and a cost of $\(cost)"
     }
 }
