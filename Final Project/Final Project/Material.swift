@@ -29,7 +29,7 @@ enum WeatherType {
 }
 
 var masses = [45, 40, 20, 30, 40, 45]
-var strengths = [65, 60, 35, 30, 45, 70]
+var strengths = [60, 55, 35, 30, 45, 70]
 var costs = [40, 20, 50, 35, 45, 70]
 
 class Material {
@@ -37,12 +37,16 @@ class Material {
     var mass: Int
     var strength: Int
     var cost: Int
+    var weak: [WeatherType]
+    var resist: [WeatherType]
     init(material: MaterialType) {
         let index = MaterialType.allValues().index(of: material)!
         self.materialType = material
         self.mass = masses[index]
         self.strength = masses[index]
         self.cost = costs[index]
+        self.weak = WeatherType.weak()[index]
+        self.resist = WeatherType.resist()[index]
     }
     
     func toString() -> String {

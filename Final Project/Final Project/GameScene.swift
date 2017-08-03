@@ -11,21 +11,27 @@ import GameplayKit
 
 class GameScene: SKScene {
     
-    
     private var spinnyNode : SKShapeNode?
+    
+    var weather: WeatherType = WeatherType.wind
     
     var labels: SKLabelNode!
     var massLabel: SKLabelNode!
     var strengthLabel: SKLabelNode!
     var costLabel: SKLabelNode!
+    var heightLabel: SKLabelNode!
     var labels2: SKLabelNode!
     var massLabel2: SKLabelNode!
     var strengthLabel2: SKLabelNode!
     var costLabel2: SKLabelNode!
+    var heightLabel2: SKLabelNode!
     
+    var bottomHeights: [Double] = []
     var bottomMass = 0
     var bottomStrength = 0
     var bottomCost = 0
+    
+    var topHeights: [Double] = []
     var topMass = 0
     var topStrength = 0
     var topCost = 0
@@ -67,10 +73,12 @@ class GameScene: SKScene {
         massLabel = childNode(withName: "//massLabel") as! SKLabelNode
         costLabel = childNode(withName: "//costLabel") as! SKLabelNode
         strengthLabel = childNode(withName: "//strengthLabel") as! SKLabelNode
+        heightLabel = childNode(withName: "//heightLabel") as! SKLabelNode
         labels2 = childNode(withName: "labels2") as! SKLabelNode
         massLabel2 = childNode(withName: "//massLabel2") as! SKLabelNode
         costLabel2 = childNode(withName: "//costLabel2") as! SKLabelNode
         strengthLabel2 = childNode(withName: "//strengthLabel2") as! SKLabelNode
+        heightLabel2 = childNode(withName: "//heightLabel2") as! SKLabelNode
         stone = childNode(withName: "stone") as! SKSpriteNode
         brick = childNode(withName: "brick") as! SKSpriteNode
         thatch = childNode(withName: "thatch") as! SKSpriteNode
@@ -243,27 +251,51 @@ class GameScene: SKScene {
 //       }
     }
     
-    func scoring() {
+    func scoring(gameWeather: WeatherType) {
         for material in bottom {
             print(material.toString())
             bottomMass = bottomMass + material.mass
-            bottomStrength = bottomStrength + material.strength
             bottomCost = bottomCost +  material.cost
+            if material.weak.contains(gameWeather) {
+                bottomStrength = bottomStrength + material.strength / 2
+            }
+            else if material.resist.contains(gameWeather) {
+                bottomStrength = bottomStrength + material.strength * 2
+            }
+            else {
+                bottomStrength = bottomStrength + material.strength
+            }
+        }
+        for material in bottomMaterialArray {
+            bottomHeights.append(Double(material.position.y) + 30.0)
         }
         labels.zPosition = 2
         massLabel.text = String(bottomMass)
         strengthLabel.text = String(bottomStrength)
         costLabel.text = String(bottomCost)
+        heightLabel.text = String(Int(bottomHeights.max()!))
         for material in top {
             print(material.toString())
             topMass = topMass + material.mass
-            topStrength = topStrength + material.strength
             topCost = topCost +  material.cost
+            if material.weak.contains(gameWeather) {
+                topStrength = topStrength + material.strength / 2
+            }
+            else if material.resist.contains(gameWeather) {
+                topStrength = topStrength + material.strength * 2
+            }
+            else {
+                topStrength = topStrength + material.strength
+            }
+        }
+        for material in topMaterialArray {
+            topHeights.append(1364 - Double(material.position.y))
         }
         labels2.zPosition = 2
         massLabel2.text = String(topMass)
         strengthLabel2.text = String(topStrength)
         costLabel2.text = String(topCost)
+        heightLabel2.text = String(Int(topHeights.max()!))
     }
     
     func callTornado() {
@@ -376,8 +408,33 @@ class GameScene: SKScene {
             material.physicsBody?.applyForce(CGVector(dx: 0, dy: -250))
         }
         if frames == 1000 {
-            callAntiGravity()
-            scoring()
+            let num = Int(arc4random_uniform(UInt32(6)))
+            switch num {
+            case 0:
+                callAntiGravity()
+                weather = WeatherType.fire
+            case 1:
+                callAntiGravity()
+                weather = WeatherType.acid
+            case 2:
+                callAntiGravity()
+                weather = WeatherType.bug
+            case 3:
+                callAntiGravity()
+                weather = WeatherType.electric
+            case 4:
+                callAntiGravity()
+                weather = WeatherType.water
+            case 5:
+                callAntiGravity()
+            default:
+                callAntiGravity()
+                
+            }
+            print(num)
+        }
+        if frames == 1400 {
+            scoring(gameWeather: weather)
         }
     }
 }
