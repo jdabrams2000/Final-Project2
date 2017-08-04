@@ -7,6 +7,8 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		160D83D01F33C0E300C0303C /* buzzer.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = 160D83CF1F33C0E300C0303C /* buzzer.mp3 */; };
+		160D83D51F3414C200C0303C /* sfx_seal.caf in Resources */ = {isa = PBXBuildFile; fileRef = 160D83D41F3414C200C0303C /* sfx_seal.caf */; };
 		1658EB4A1F30F53F0042AF1C /* MainMenu.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1658EB491F30F53F0042AF1C /* MainMenu.swift */; };
 		1658EB4C1F30F5580042AF1C /* MainMenu.sks in Resources */ = {isa = PBXBuildFile; fileRef = 1658EB4B1F30F5580042AF1C /* MainMenu.sks */; };
 		16CEF1B11F26507200D13F87 /* Material.swift in Sources */ = {isa = PBXBuildFile; fileRef = 16CEF1B01F26507200D13F87 /* Material.swift */; };
@@ -22,6 +24,8 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		160D83CF1F33C0E300C0303C /* buzzer.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; name = buzzer.mp3; path = ../buzzer.mp3; sourceTree = "<group>"; };
+		160D83D41F3414C200C0303C /* sfx_seal.caf */ = {isa = PBXFileReference; lastKnownFileType = file; path = sfx_seal.caf; sourceTree = "<group>"; };
 		1658EB491F30F53F0042AF1C /* MainMenu.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MainMenu.swift; sourceTree = "<group>"; };
 		1658EB4B1F30F5580042AF1C /* MainMenu.sks */ = {isa = PBXFileReference; lastKnownFileType = file.sks; path = MainMenu.sks; sourceTree = "<group>"; };
 		16CEF1B01F26507200D13F87 /* Material.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Material.swift; sourceTree = "<group>"; };
@@ -49,6 +53,15 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		160D83D31F3414C200C0303C /* SFX */ = {
+			isa = PBXGroup;
+			children = (
+				160D83CF1F33C0E300C0303C /* buzzer.mp3 */,
+				160D83D41F3414C200C0303C /* sfx_seal.caf */,
+			);
+			path = SFX;
+			sourceTree = "<group>";
+		};
 		16FD031A1F2629CF003086C7 = {
 			isa = PBXGroup;
 			children = (
@@ -73,6 +86,7 @@
 				16FD03281F2629CF003086C7 /* GameScene.sks */,
 				16FD032A1F2629CF003086C7 /* Actions.sks */,
 				16FD032C1F2629CF003086C7 /* GameScene.swift */,
+				160D83D31F3414C200C0303C /* SFX */,
 				16CEF1B01F26507200D13F87 /* Material.swift */,
 				1658EB491F30F53F0042AF1C /* MainMenu.swift */,
 				1658EB4B1F30F5580042AF1C /* MainMenu.sks */,
@@ -146,9 +160,11 @@
 			buildActionMask = 2147483647;
 			files = (
 				16FD03321F2629CF003086C7 /* Main.storyboard in Resources */,
+				160D83D51F3414C200C0303C /* sfx_seal.caf in Resources */,
 				1658EB4C1F30F5580042AF1C /* MainMenu.sks in Resources */,
 				16FD03291F2629CF003086C7 /* GameScene.sks in Resources */,
 				16FD03371F2629CF003086C7 /* LaunchScreen.storyboard in Resources */,
+				160D83D01F33C0E300C0303C /* buzzer.mp3 in Resources */,
 				16CEF1F51F2A258600D13F87 /* Assets.xcassets in Resources */,
 				16FD032B1F2629CF003086C7 /* Actions.sks in Resources */,
 			);

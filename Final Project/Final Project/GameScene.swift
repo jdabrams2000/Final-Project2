@@ -42,10 +42,7 @@ class GameScene: SKScene {
     var bottom: [Material] = []
     var top: [Material] = []
     let materials = MaterialType.allValues()
-    let tornadoTop = SKFieldNode.vortexField()
-    let tornadoBottom = SKFieldNode.vortexField()
-    let antiGravity = SKFieldNode.radialGravityField()
-    let spring = SKFieldNode.springField()
+    
     var bottomCount = 10
     var topCount = 10
     
@@ -67,8 +64,12 @@ class GameScene: SKScene {
     var ice: SKSpriteNode!
     var marble: SKSpriteNode!
     var copper: SKSpriteNode!
+    var warning: SKSpriteNode!
+    
+    let sound = SKAction.playSoundFileNamed("buzzer.mp3", waitForCompletion: false)
     
     override func didMove(to view: SKView) {
+        warning = childNode(withName: "warning") as! SKSpriteNode
         labels = childNode(withName: "labels") as! SKLabelNode
         massLabel = childNode(withName: "//massLabel") as! SKLabelNode
         costLabel = childNode(withName: "//costLabel") as! SKLabelNode
@@ -298,34 +299,49 @@ class GameScene: SKScene {
         heightLabel2.text = String(Int(topHeights.max()!))
     }
     
-    func callTornado() {
+    func callWind() {
         print("Tornado")
+        let tornadoBottom = SKFieldNode.vortexField()
+        tornadoBottom.position.x = 375
+        tornadoBottom.position.y = 333.5
         tornadoBottom.strength = 50
         self.addChild(tornadoBottom)
-        self.addChild(tornadoTop)
         DispatchQueue.main.asyncAfter(deadline: .now() + 3.0) {
-            self.tornadoBottom.strength = 0
-            self.tornadoTop.strength = 0
+            tornadoBottom.strength = 0
+            tornadoBottom.position.x = 375
+            tornadoBottom.position.y = 1000
+            tornadoBottom.strength = 50
+            DispatchQueue.main.asyncAfter(deadline: .now() + 3.0) {
+                tornadoBottom.strength = 0
+            }
         }
     }
     
-    func callAntiGravity() {
-        print("AntiGravity")
-        antiGravity.strength = 500
-        self.addChild(antiGravity)
-        DispatchQueue.main.asyncAfter(deadline: .now() + 3.0) {
-            self.antiGravity.strength = 0
-        }
-    }
+//    func callAntiGravity() {
+//        print("AntiGravity")
+//        let antiGravity = SKFieldNode.vortexField()
+//        antiGravity.position.x = 375
+//        antiGravity.position.y = 333.5
+//        antiGravity.strength = 50
+//        self.addChild(antiGravity)
+//        let antiGravity2 = SKFieldNode.vortexField()
+//        antiGravity2.position.x = 375
+//        antiGravity2.position.y = 1000.5
+//        antiGravity2.strength = 50
+//        self.addChild(antiGravity2)
+//        DispatchQueue.main.asyncAfter(deadline: .now() + 3.0) {
+//            antiGravity.strength = 0
+//        }
+//    }
     
-    func callSpring() {
-        print("Spring")
-        spring.strength = 100
-        self.addChild(spring)
-        DispatchQueue.main.asyncAfter(deadline: .now() + 3.0) {
-            self.spring.strength = 0
-        }
-    }
+//    func callSpring() {
+//        print("Spring")
+//        spring.strength = 100
+//        self.addChild(spring)
+//        DispatchQueue.main.asyncAfter(deadline: .now() + 3.0) {
+//            self.spring.strength = 0
+//        }
+//    }
     
     func returnMaterial(node: SKNode, position: CGPoint) {
         print("Function returnMaterial is working")
@@ -407,28 +423,33 @@ class GameScene: SKScene {
         for material in bottomMaterialArray {
             material.physicsBody?.applyForce(CGVector(dx: 0, dy: -250))
         }
+        if frames == 900 {
+            warning.zPosition = 3
+            self.run(sound)
+        }
         if frames == 1000 {
+            self.isUserInteractionEnabled = false
             let num = Int(arc4random_uniform(UInt32(6)))
             switch num {
             case 0:
-                callAntiGravity()
+                callWind()
                 weather = WeatherType.fire
             case 1:
-                callAntiGravity()
+                callWind()
                 weather = WeatherType.acid
             case 2:
-                callAntiGravity()
+                callWind()
                 weather = WeatherType.bug
             case 3:
-                callAntiGravity()
+                callWind()
                 weather = WeatherType.electric
             case 4:
-                callAntiGravity()
+                callWind()
                 weather = WeatherType.water
             case 5:
-                callAntiGravity()
+                callWind()
             default:
-                callAntiGravity()
+                callWind()
                 
             }
             print(num)
