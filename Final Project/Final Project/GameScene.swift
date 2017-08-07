@@ -65,10 +65,10 @@ class GameScene: SKScene {
     var marble: SKSpriteNode!
     var copper: SKSpriteNode!
     var warning: SKSpriteNode!
-    
-    let sound = SKAction.playSoundFileNamed("buzzer.mp3", waitForCompletion: false)
+    var tornado: SKSpriteNode!
     
     override func didMove(to view: SKView) {
+        tornado = childNode(withName: "tornado") as! SKSpriteNode
         warning = childNode(withName: "warning") as! SKSpriteNode
         labels = childNode(withName: "labels") as! SKLabelNode
         massLabel = childNode(withName: "//massLabel") as! SKLabelNode
@@ -301,20 +301,68 @@ class GameScene: SKScene {
     
     func callWind() {
         print("Tornado")
-        let tornadoBottom = SKFieldNode.vortexField()
-        tornadoBottom.position.x = 375
-        tornadoBottom.position.y = 333.5
-        tornadoBottom.strength = 50
-        self.addChild(tornadoBottom)
-        DispatchQueue.main.asyncAfter(deadline: .now() + 3.0) {
-            tornadoBottom.strength = 0
+        tornado.zPosition = 4
+        DispatchQueue.main.asyncAfter(deadline: .now() + 2.0) {
+            self.tornado.zPosition = -2
+            let tornadoBottom = SKFieldNode.vortexField()
             tornadoBottom.position.x = 375
-            tornadoBottom.position.y = 1000
+            tornadoBottom.position.y = 333.5
             tornadoBottom.strength = 50
+            self.addChild(tornadoBottom)
             DispatchQueue.main.asyncAfter(deadline: .now() + 3.0) {
                 tornadoBottom.strength = 0
+                tornadoBottom.position.x = 375
+                tornadoBottom.position.y = 1000
+                tornadoBottom.strength = 50
+                DispatchQueue.main.asyncAfter(deadline: .now() + 3.0) {
+                    tornadoBottom.strength = 0
+                }
             }
         }
+    }
+    
+    func callBug() {
+        print("Bug")
+        let swarmBottom = SKFieldNode.radialGravityField()
+        swarmBottom.position.x = 1125
+        swarmBottom.position.y = 333.5
+        swarmBottom.strength = 300
+        self.addChild(swarmBottom)
+        DispatchQueue.main.asyncAfter(deadline: .now() + 3.0) {
+            swarmBottom.strength = 0
+            swarmBottom.position.x = -1125
+            swarmBottom.position.y = 1000
+            swarmBottom.strength = 300
+            DispatchQueue.main.asyncAfter(deadline: .now() + 3.0) {
+                swarmBottom.strength = 0
+            }
+        }
+    }
+    
+    func callWater() {
+        let bottomWater = SKFieldNode.radialGravityField()
+        bottomWater.position.x = 375
+        bottomWater.position.y = 667
+        bottomWater.strength = 150
+        self.addChild(bottomWater)
+        DispatchQueue.main.asyncAfter(deadline: .now() + 6.0) {
+            bottomWater.strength = 0
+        }
+    }
+    
+    func callAcid() {
+        var removed: [SKNode] = []
+        if bottomMaterialArray.count != 0 {
+            let bottomIndex = Int(arc4random_uniform(UInt32(bottomMaterialArray.count)))
+            removed.append(bottomMaterialArray.remove(at: bottomIndex))
+            bottom.remove(at: bottomIndex)
+        }
+        if topMaterialArray.count != 0 {
+            let topIndex = Int(arc4random_uniform(UInt32(topMaterialArray.count)))
+            removed.append(topMaterialArray.remove(at: topIndex))
+            top.remove(at: topIndex)
+        }
+        self.removeChildren(in: removed)
     }
     
 //    func callAntiGravity() {
@@ -425,7 +473,7 @@ class GameScene: SKScene {
         }
         if frames == 900 {
             warning.zPosition = 3
-            self.run(sound)
+//            run(SKAction.playSoundFileNamed("sfx_alert", waitForCompletion: false))
         }
         if frames == 1000 {
             self.isUserInteractionEnabled = false
@@ -438,23 +486,21 @@ class GameScene: SKScene {
                 callWind()
                 weather = WeatherType.acid
             case 2:
-                callWind()
+                callBug()
                 weather = WeatherType.bug
             case 3:
                 callWind()
                 weather = WeatherType.electric
             case 4:
-                callWind()
+                callWater()
                 weather = WeatherType.water
-            case 5:
-                callWind()
             default:
                 callWind()
                 
             }
             print(num)
         }
-        if frames == 1400 {
+        if frames == 1700 {
             scoring(gameWeather: weather)
         }
     }

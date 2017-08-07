@@ -7,8 +7,9 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		160D83D01F33C0E300C0303C /* buzzer.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = 160D83CF1F33C0E300C0303C /* buzzer.mp3 */; };
 		160D83D51F3414C200C0303C /* sfx_seal.caf in Resources */ = {isa = PBXBuildFile; fileRef = 160D83D41F3414C200C0303C /* sfx_seal.caf */; };
+		160D83D91F34BE2200C0303C /* sfx_buzzer.caf in Resources */ = {isa = PBXBuildFile; fileRef = 160D83D81F34BD5600C0303C /* sfx_buzzer.caf */; };
+		160D83DB1F34BFCA00C0303C /* sfx_alert.caf in Resources */ = {isa = PBXBuildFile; fileRef = 160D83DA1F34BF7400C0303C /* sfx_alert.caf */; };
 		1658EB4A1F30F53F0042AF1C /* MainMenu.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1658EB491F30F53F0042AF1C /* MainMenu.swift */; };
 		1658EB4C1F30F5580042AF1C /* MainMenu.sks in Resources */ = {isa = PBXBuildFile; fileRef = 1658EB4B1F30F5580042AF1C /* MainMenu.sks */; };
 		16CEF1B11F26507200D13F87 /* Material.swift in Sources */ = {isa = PBXBuildFile; fileRef = 16CEF1B01F26507200D13F87 /* Material.swift */; };
@@ -24,8 +25,9 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
-		160D83CF1F33C0E300C0303C /* buzzer.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; name = buzzer.mp3; path = ../buzzer.mp3; sourceTree = "<group>"; };
 		160D83D41F3414C200C0303C /* sfx_seal.caf */ = {isa = PBXFileReference; lastKnownFileType = file; path = sfx_seal.caf; sourceTree = "<group>"; };
+		160D83D81F34BD5600C0303C /* sfx_buzzer.caf */ = {isa = PBXFileReference; lastKnownFileType = file; path = sfx_buzzer.caf; sourceTree = "<group>"; };
+		160D83DA1F34BF7400C0303C /* sfx_alert.caf */ = {isa = PBXFileReference; lastKnownFileType = file; path = sfx_alert.caf; sourceTree = "<group>"; };
 		1658EB491F30F53F0042AF1C /* MainMenu.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MainMenu.swift; sourceTree = "<group>"; };
 		1658EB4B1F30F5580042AF1C /* MainMenu.sks */ = {isa = PBXFileReference; lastKnownFileType = file.sks; path = MainMenu.sks; sourceTree = "<group>"; };
 		16CEF1B01F26507200D13F87 /* Material.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Material.swift; sourceTree = "<group>"; };
@@ -56,7 +58,8 @@
 		160D83D31F3414C200C0303C /* SFX */ = {
 			isa = PBXGroup;
 			children = (
-				160D83CF1F33C0E300C0303C /* buzzer.mp3 */,
+				160D83D81F34BD5600C0303C /* sfx_buzzer.caf */,
+				160D83DA1F34BF7400C0303C /* sfx_alert.caf */,
 				160D83D41F3414C200C0303C /* sfx_seal.caf */,
 			);
 			path = SFX;
@@ -159,12 +162,13 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				160D83DB1F34BFCA00C0303C /* sfx_alert.caf in Resources */,
+				160D83D91F34BE2200C0303C /* sfx_buzzer.caf in Resources */,
 				16FD03321F2629CF003086C7 /* Main.storyboard in Resources */,
 				160D83D51F3414C200C0303C /* sfx_seal.caf in Resources */,
 				1658EB4C1F30F5580042AF1C /* MainMenu.sks in Resources */,
 				16FD03291F2629CF003086C7 /* GameScene.sks in Resources */,
 				16FD03371F2629CF003086C7 /* LaunchScreen.storyboard in Resources */,
-				160D83D01F33C0E300C0303C /* buzzer.mp3 in Resources */,
 				16CEF1F51F2A258600D13F87 /* Assets.xcassets in Resources */,
 				16FD032B1F2629CF003086C7 /* Actions.sks in Resources */,
 			);

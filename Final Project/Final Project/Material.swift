@@ -24,7 +24,7 @@ enum WeatherType {
     }
     
     static func resist() -> [[WeatherType]] {
-        return [[fire, wind], [wind, fire], [water], [electric, acid, water], [], [fire, bug]]
+        return [[fire, wind], [wind, fire], [water], [electric, acid, water, bug], [], [fire, bug]]
     }
 }
 
