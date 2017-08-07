@@ -66,6 +66,7 @@ class GameScene: SKScene {
     var copper: SKSpriteNode!
     var warning: SKSpriteNode!
     var tornado: SKSpriteNode!
+    var restartButton: MSButtonNode!
     
     override func didMove(to view: SKView) {
         tornado = childNode(withName: "tornado") as! SKSpriteNode
@@ -86,6 +87,9 @@ class GameScene: SKScene {
         ice = childNode(withName: "ice") as! SKSpriteNode
         marble = childNode(withName: "marble") as! SKSpriteNode
         copper = childNode(withName: "copper") as! SKSpriteNode
+        restartButton = childNode(withName: "restartButton") as! MSButtonNode
+        restartButton.selectedHandler = { [unowned self] in
+        }
         stoneIcon = childNode(withName: "//stoneIcon") as! MSButtonNode
         stoneIcon.selectedHandler = {
             if self.bottomCount > 0 {
@@ -365,6 +369,22 @@ class GameScene: SKScene {
         self.removeChildren(in: removed)
     }
     
+    func callFire() {
+        let fire = SKFieldNode.springField()
+        fire.position.x = 375
+        fire.position.y = 333.5
+        fire.strength = 100
+        self.addChild(fire)
+        DispatchQueue.main.asyncAfter(deadline: .now() + 3.0) {
+            fire.strength = 0
+            fire.position.y = 1000
+            fire.strength = 100
+            DispatchQueue.main.asyncAfter(deadline: .now() + 3.0) {
+                fire.strength = 0
+            }
+        }
+    }
+    
 //    func callAntiGravity() {
 //        print("AntiGravity")
 //        let antiGravity = SKFieldNode.vortexField()
@@ -390,6 +410,15 @@ class GameScene: SKScene {
 //            self.spring.strength = 0
 //        }
 //    }
+    
+    
+    class func loadScene() -> GameScene? {
+        guard let scene = GameScene(fileNamed: "GameScene") else {
+            return nil
+        }
+        scene.scaleMode = .aspectFill
+        return scene
+    }
     
     func returnMaterial(node: SKNode, position: CGPoint) {
         print("Function returnMaterial is working")
@@ -480,10 +509,10 @@ class GameScene: SKScene {
             let num = Int(arc4random_uniform(UInt32(6)))
             switch num {
             case 0:
-                callWind()
+                callFire()
                 weather = WeatherType.fire
             case 1:
-                callWind()
+                callAcid()
                 weather = WeatherType.acid
             case 2:
                 callBug()
