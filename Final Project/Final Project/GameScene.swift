@@ -65,12 +65,14 @@ class GameScene: SKScene {
     var marble: SKSpriteNode!
     var copper: SKSpriteNode!
     var warning: SKSpriteNode!
+    var warning2: SKSpriteNode!
     var tornado: SKSpriteNode!
     var restartButton: MSButtonNode!
     
     override func didMove(to view: SKView) {
         tornado = childNode(withName: "tornado") as! SKSpriteNode
         warning = childNode(withName: "warning") as! SKSpriteNode
+        warning2 = childNode(withName: "warning") as! SKSpriteNode
         labels = childNode(withName: "labels") as! SKLabelNode
         massLabel = childNode(withName: "//massLabel") as! SKLabelNode
         costLabel = childNode(withName: "//costLabel") as! SKLabelNode
@@ -88,7 +90,14 @@ class GameScene: SKScene {
         marble = childNode(withName: "marble") as! SKSpriteNode
         copper = childNode(withName: "copper") as! SKSpriteNode
         restartButton = childNode(withName: "restartButton") as! MSButtonNode
-        restartButton.selectedHandler = { [unowned self] in
+        restartButton.selectedHandler = {
+            guard let scene = GameScene.loadScene() else {
+                print("Level 1 is missing?")
+                return
+            }
+            
+            scene.scaleMode = .aspectFill
+            view.presentScene(scene)
         }
         stoneIcon = childNode(withName: "//stoneIcon") as! MSButtonNode
         stoneIcon.selectedHandler = {
@@ -502,6 +511,7 @@ class GameScene: SKScene {
         }
         if frames == 900 {
             warning.zPosition = 3
+            warning2.zPosition = 3
 //            run(SKAction.playSoundFileNamed("sfx_alert", waitForCompletion: false))
         }
         if frames == 1000 {

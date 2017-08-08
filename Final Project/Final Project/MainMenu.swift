@@ -11,17 +11,17 @@ import SpriteKit
 class MainMenu: SKScene {
     
     /* UI Connections */
-    var buttonSingle: MSButtonNode!
+//    var buttonSingle: MSButtonNode!
     var buttonParty: MSButtonNode!
     
     override func didMove(to view: SKView) {
         /* Setup your scene here */
         
         /* Set UI connections */
-        buttonSingle = self.childNode(withName: "buttonSingle") as! MSButtonNode
+//        buttonSingle = self.childNode(withName: "buttonSingle") as! MSButtonNode
         
         buttonParty = self.childNode(withName: "buttonParty") as! MSButtonNode
-        buttonParty.selectedHandler = {
+        buttonParty.selectedHandler = { [unowned self] in
             self.loadGame()
         }
     }
@@ -47,7 +47,7 @@ class MainMenu: SKScene {
         skView.showsDrawCount = true
         skView.showsFPS = true
         
-//        /* 4) Start game scene */
-//        skView.presentScene(scene)
+       /* 4) Start game scene */
+        skView.presentScene(scene)
     }
 }
