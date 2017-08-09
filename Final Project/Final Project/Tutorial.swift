@@ -21,7 +21,7 @@ class Tutorial : SKScene {
         
         switch frames {
         case 60:
-            label.text = "Hello, your job is to build the strongest, tallest "
+            label.text = "Hello, your job is to build the strongest, tallest and cheapest tower"
         default:
             break
         }

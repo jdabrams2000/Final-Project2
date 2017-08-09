@@ -6,12 +6,15 @@
 //  Copyright © 2017 Jacob Abrams. All rights reserved.
 //
 
+
 import SpriteKit
+import GameplayKit
 
 class MainMenu: SKScene {
     
     /* UI Connections */
 //    var buttonSingle: MSButtonNode!
+    
     var buttonParty: MSButtonNode!
     
     override func didMove(to view: SKView) {
@@ -20,8 +23,12 @@ class MainMenu: SKScene {
         /* Set UI connections */
 //        buttonSingle = self.childNode(withName: "buttonSingle") as! MSButtonNode
         
-        buttonParty = self.childNode(withName: "buttonParty") as! MSButtonNode
+        buttonParty = childNode(withName: "button") as! MSButtonNode
+        
+        buttonParty.state = .msButtonNodeStateActive
+        
         buttonParty.selectedHandler = { [unowned self] in
+            print("I")
             self.loadGame()
         }
     }
@@ -50,4 +57,6 @@ class MainMenu: SKScene {
        /* 4) Start game scene */
         skView.presentScene(scene)
     }
+    
+    
 }

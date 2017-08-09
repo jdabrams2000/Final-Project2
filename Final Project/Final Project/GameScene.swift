@@ -66,13 +66,23 @@ class GameScene: SKScene {
     var copper: SKSpriteNode!
     var warning: SKSpriteNode!
     var warning2: SKSpriteNode!
+    
     var tornado: SKSpriteNode!
+    var acid: SKSpriteNode!
+    var tsunami: SKSpriteNode!
+    var earthquake: SKSpriteNode!
+    var swarm: SKSpriteNode!
+    
     var restartButton: MSButtonNode!
     
     override func didMove(to view: SKView) {
         tornado = childNode(withName: "tornado") as! SKSpriteNode
+        acid = childNode(withName: "acid") as! SKSpriteNode
+        tsunami = childNode(withName: "tsunami") as! SKSpriteNode
+        earthquake = childNode(withName: "earthquake") as! SKSpriteNode
+        swarm = childNode(withName: "swarm") as! SKSpriteNode
         warning = childNode(withName: "warning") as! SKSpriteNode
-        warning2 = childNode(withName: "warning") as! SKSpriteNode
+        warning2 = childNode(withName: "warning2") as! SKSpriteNode
         labels = childNode(withName: "labels") as! SKLabelNode
         massLabel = childNode(withName: "//massLabel") as! SKLabelNode
         costLabel = childNode(withName: "//costLabel") as! SKLabelNode
@@ -100,7 +110,7 @@ class GameScene: SKScene {
             view.presentScene(scene)
         }
         stoneIcon = childNode(withName: "//stoneIcon") as! MSButtonNode
-        stoneIcon.selectedHandler = {
+        stoneIcon.selectedHandler = { [unowned self] in
             if self.bottomCount > 0 {
                 let newStone = self.stone.copy() as! SKNode
                 self.addChild(newStone)
@@ -124,7 +134,7 @@ class GameScene: SKScene {
             }
         }
         thatchIcon = childNode(withName: "//thatchIcon") as! MSButtonNode
-        thatchIcon.selectedHandler = {
+        thatchIcon.selectedHandler = { [unowned self] in
             if self.bottomCount > 0 {
                 let newThatch = self.thatch.copy() as! SKNode
                 self.addChild(newThatch)
@@ -136,7 +146,7 @@ class GameScene: SKScene {
             }
         }
         iceIcon = childNode(withName: "//iceIcon") as! MSButtonNode
-        iceIcon.selectedHandler = {
+        iceIcon.selectedHandler = { [unowned self] in
             if self.bottomCount > 0 {
                 let newIce = self.ice.copy() as! SKNode
                 self.addChild(newIce)
@@ -148,7 +158,7 @@ class GameScene: SKScene {
             }
         }
         marbleIcon = childNode(withName: "//marbleIcon") as! MSButtonNode
-        marbleIcon.selectedHandler = {
+        marbleIcon.selectedHandler = { [unowned self] in
             if self.bottomCount > 0 {
                 let newMarble = self.marble.copy() as! SKNode
                 self.addChild(newMarble)
@@ -160,7 +170,7 @@ class GameScene: SKScene {
             }
         }
         copperIcon = childNode(withName: "//copperIcon") as! MSButtonNode
-        copperIcon.selectedHandler = {
+        copperIcon.selectedHandler = { [unowned self] in
             if self.bottomCount > 0 {
                 let newCopper = self.copper.copy() as! SKNode
                 self.addChild(newCopper)
@@ -172,7 +182,7 @@ class GameScene: SKScene {
             }
         }
         stoneIcon2 = childNode(withName: "//stoneIcon2") as! MSButtonNode
-        stoneIcon2.selectedHandler = {
+        stoneIcon2.selectedHandler = { [unowned self] in
             if self.topCount > 0 {
                 let newStone = self.stone.copy() as! SKNode
                 self.addChild(newStone)
@@ -184,7 +194,7 @@ class GameScene: SKScene {
             }
         }
         brickIcon2 = childNode(withName: "//brickIcon2") as! MSButtonNode
-        brickIcon2.selectedHandler = {
+        brickIcon2.selectedHandler = { [unowned self] in
             if self.topCount > 0 {
                 let newBrick = self.brick.copy() as! SKNode
                 self.addChild(newBrick)
@@ -196,7 +206,7 @@ class GameScene: SKScene {
             }
         }
         thatchIcon2 = childNode(withName: "//thatchIcon2") as! MSButtonNode
-        thatchIcon2.selectedHandler = {
+        thatchIcon2.selectedHandler = { [unowned self] in
             if self.topCount > 0 {
                 let newThatch = self.thatch.copy() as! SKNode
                 self.addChild(newThatch)
@@ -208,7 +218,7 @@ class GameScene: SKScene {
             }
         }
         iceIcon2 = childNode(withName: "//iceIcon2") as! MSButtonNode
-        iceIcon2.selectedHandler = {
+        iceIcon2.selectedHandler = { [unowned self] in
             if self.topCount > 0 {
                 let newIce = self.ice.copy() as! SKNode
                 self.addChild(newIce)
@@ -220,7 +230,7 @@ class GameScene: SKScene {
             }
         }
         marbleIcon2 = childNode(withName: "//marbleIcon2") as! MSButtonNode
-        marbleIcon2.selectedHandler = {
+        marbleIcon2.selectedHandler = { [unowned self] in
             if self.topCount > 0 {
                 let newMarble = self.marble.copy() as! SKNode
                 self.addChild(newMarble)
@@ -232,7 +242,7 @@ class GameScene: SKScene {
             }
         }
         copperIcon2 = childNode(withName: "//copperIcon2") as! MSButtonNode
-        copperIcon2.selectedHandler = {
+        copperIcon2.selectedHandler = { [unowned self] in
             if self.topCount > 0 {
                 let newCopper = self.copper.copy() as! SKNode
                 self.addChild(newCopper)
@@ -336,12 +346,14 @@ class GameScene: SKScene {
     
     func callBug() {
         print("Bug")
+        swarm.zPosition = 4
         let swarmBottom = SKFieldNode.radialGravityField()
         swarmBottom.position.x = 1125
         swarmBottom.position.y = 333.5
         swarmBottom.strength = 300
         self.addChild(swarmBottom)
         DispatchQueue.main.asyncAfter(deadline: .now() + 3.0) {
+            self.swarm.zPosition = -2
             swarmBottom.strength = 0
             swarmBottom.position.x = -1125
             swarmBottom.position.y = 1000
@@ -353,38 +365,47 @@ class GameScene: SKScene {
     }
     
     func callWater() {
+        tsunami.zPosition = 4
         let bottomWater = SKFieldNode.radialGravityField()
         bottomWater.position.x = 375
         bottomWater.position.y = 667
         bottomWater.strength = 150
         self.addChild(bottomWater)
         DispatchQueue.main.asyncAfter(deadline: .now() + 6.0) {
+            self.tsunami.zPosition = -2
             bottomWater.strength = 0
         }
     }
     
     func callAcid() {
-        var removed: [SKNode] = []
-        if bottomMaterialArray.count != 0 {
-            let bottomIndex = Int(arc4random_uniform(UInt32(bottomMaterialArray.count)))
-            removed.append(bottomMaterialArray.remove(at: bottomIndex))
-            bottom.remove(at: bottomIndex)
+        print("Acid")
+        acid.zPosition = 4
+        DispatchQueue.main.asyncAfter(deadline: .now() + 3.0) {
+            self.acid.zPosition = -2
+            var removed: [SKNode] = []
+            if self.bottomMaterialArray.count != 0 {
+                let bottomIndex = Int(arc4random_uniform(UInt32(self.bottomMaterialArray.count)))
+                removed.append(self.bottomMaterialArray.remove(at: bottomIndex))
+                self.bottom.remove(at: bottomIndex)
+            }
+            if self.topMaterialArray.count != 0 {
+                let topIndex = Int(arc4random_uniform(UInt32(self.topMaterialArray.count)))
+                removed.append(self.topMaterialArray.remove(at: topIndex))
+                self.top.remove(at: topIndex)
+            }
+            self.removeChildren(in: removed)
         }
-        if topMaterialArray.count != 0 {
-            let topIndex = Int(arc4random_uniform(UInt32(topMaterialArray.count)))
-            removed.append(topMaterialArray.remove(at: topIndex))
-            top.remove(at: topIndex)
-        }
-        self.removeChildren(in: removed)
     }
     
     func callFire() {
+        earthquake.zPosition = 4
         let fire = SKFieldNode.springField()
         fire.position.x = 375
         fire.position.y = 333.5
         fire.strength = 100
         self.addChild(fire)
         DispatchQueue.main.asyncAfter(deadline: .now() + 3.0) {
+            self.earthquake.zPosition = -2
             fire.strength = 0
             fire.position.y = 1000
             fire.strength = 100
@@ -427,10 +448,6 @@ class GameScene: SKScene {
         }
         scene.scaleMode = .aspectFill
         return scene
-    }
-    
-    func returnMaterial(node: SKNode, position: CGPoint) {
-        print("Function returnMaterial is working")
     }
     
     func touchDown(atPoint pos : CGPoint) {
