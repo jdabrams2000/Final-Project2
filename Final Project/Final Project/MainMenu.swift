@@ -34,7 +34,7 @@ class MainMenu: SKScene {
         }
         
         /* 2) Load Game scene */
-        guard let scene = GameScene.loadScene() else {
+        guard let scene = GameScene(fileNamed: "GameScene") else {
             print("Could not load GameScene with level 1")
             return
         }
