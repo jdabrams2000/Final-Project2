@@ -17,14 +17,14 @@ enum MaterialType {
 }
 
 enum WeatherType {
-    case wind, water, bug, fire, electric, acid
+    case wind, water, bug, ground, electric, acid
     
     static func weak() -> [[WeatherType]] {
-        return [[acid], [], [fire, electric, bug, acid], [fire], [water, acid], [electric, water, acid]]
+        return [[acid, ground], [ground], [bug, acid], [], [water, acid], [water, acid]]
     }
     
     static func resist() -> [[WeatherType]] {
-        return [[fire, wind], [wind, fire], [water], [electric, acid, water, bug], [], [fire, bug]]
+        return [[wind], [wind], [water, ground], [acid, water, bug], [], [ground, bug]]
     }
 }
 

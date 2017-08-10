@@ -43,8 +43,8 @@ class GameScene: SKScene {
     var top: [Material] = []
     let materials = MaterialType.allValues()
     
-    var bottomCount = 10
-    var topCount = 10
+    var bottomCount = 15
+    var topCount = 15
     
     var stoneIcon: MSButtonNode!
     var brickIcon: MSButtonNode!
@@ -111,7 +111,7 @@ class GameScene: SKScene {
         }
         stoneIcon = childNode(withName: "//stoneIcon") as! MSButtonNode
         stoneIcon.selectedHandler = { [unowned self] in
-            if self.bottomCount > 0 {
+            if self.bottomCount > 0  {
                 let newStone = self.stone.copy() as! SKNode
                 self.addChild(newStone)
                 newStone.position.x = 30
@@ -397,20 +397,20 @@ class GameScene: SKScene {
         }
     }
     
-    func callFire() {
+    func callground() {
         earthquake.zPosition = 4
-        let fire = SKFieldNode.springField()
-        fire.position.x = 375
-        fire.position.y = 333.5
-        fire.strength = 100
-        self.addChild(fire)
+        let ground = SKFieldNode.springField()
+        ground.position.x = 375
+        ground.position.y = 333.5
+        ground.strength = 100
+        self.addChild(ground)
         DispatchQueue.main.asyncAfter(deadline: .now() + 3.0) {
             self.earthquake.zPosition = -2
-            fire.strength = 0
-            fire.position.y = 1000
-            fire.strength = 100
+            ground.strength = 0
+            ground.position.y = 1000
+            ground.strength = 100
             DispatchQueue.main.asyncAfter(deadline: .now() + 3.0) {
-                fire.strength = 0
+                ground.strength = 0
             }
         }
     }
@@ -532,21 +532,18 @@ class GameScene: SKScene {
 //            run(SKAction.playSoundFileNamed("sfx_alert", waitForCompletion: false))
         }
         if frames == 1000 {
-            self.isUserInteractionEnabled = false
+            self.isUserInteractionEnabled = true
             let num = Int(arc4random_uniform(UInt32(6)))
             switch num {
             case 0:
-                callFire()
-                weather = WeatherType.fire
+                callground()
+                weather = WeatherType.ground
             case 1:
                 callAcid()
                 weather = WeatherType.acid
             case 2:
                 callBug()
                 weather = WeatherType.bug
-            case 3:
-                callWind()
-                weather = WeatherType.electric
             case 4:
                 callWater()
                 weather = WeatherType.water
@@ -558,6 +555,7 @@ class GameScene: SKScene {
         }
         if frames == 1700 {
             scoring(gameWeather: weather)
+            self.isUserInteractionEnabled = true
         }
     }
 }

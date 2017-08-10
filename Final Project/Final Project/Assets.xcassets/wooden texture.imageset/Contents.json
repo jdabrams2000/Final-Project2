@@ -2,11 +2,11 @@
   "images" : [
     {
       "idiom" : "universal",
-      "filename" : "wooden texture.png",
       "scale" : "1x"
     },
     {
       "idiom" : "universal",
+      "filename" : "wooden texture.png",
       "scale" : "2x"
     },
     {
