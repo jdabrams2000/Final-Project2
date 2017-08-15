@@ -16,12 +16,12 @@ class GameScene: SKScene {
     var weather: WeatherType = WeatherType.wind
     
     var labels: SKLabelNode!
-    var massLabel: SKLabelNode!
+    var scoreLabel: SKLabelNode!
     var strengthLabel: SKLabelNode!
     var costLabel: SKLabelNode!
     var heightLabel: SKLabelNode!
     var labels2: SKLabelNode!
-    var massLabel2: SKLabelNode!
+    var scoreLabel2: SKLabelNode!
     var strengthLabel2: SKLabelNode!
     var costLabel2: SKLabelNode!
     var heightLabel2: SKLabelNode!
@@ -84,12 +84,12 @@ class GameScene: SKScene {
         warning = childNode(withName: "warning") as! SKSpriteNode
         warning2 = childNode(withName: "warning2") as! SKSpriteNode
         labels = childNode(withName: "labels") as! SKLabelNode
-        massLabel = childNode(withName: "//massLabel") as! SKLabelNode
+        scoreLabel = childNode(withName: "//scoreLabel") as! SKLabelNode
         costLabel = childNode(withName: "//costLabel") as! SKLabelNode
         strengthLabel = childNode(withName: "//strengthLabel") as! SKLabelNode
         heightLabel = childNode(withName: "//heightLabel") as! SKLabelNode
         labels2 = childNode(withName: "labels2") as! SKLabelNode
-        massLabel2 = childNode(withName: "//massLabel2") as! SKLabelNode
+        scoreLabel2 = childNode(withName: "//scoreLabel2") as! SKLabelNode
         costLabel2 = childNode(withName: "//costLabel2") as! SKLabelNode
         strengthLabel2 = childNode(withName: "//strengthLabel2") as! SKLabelNode
         heightLabel2 = childNode(withName: "//heightLabel2") as! SKLabelNode
@@ -278,7 +278,6 @@ class GameScene: SKScene {
     func scoring(gameWeather: WeatherType) {
         for material in bottom {
             print(material.toString())
-            bottomMass = bottomMass + material.mass
             bottomCost = bottomCost +  material.cost
             if material.weak.contains(gameWeather) {
                 bottomStrength = bottomStrength + material.strength / 2
@@ -293,14 +292,13 @@ class GameScene: SKScene {
         for material in bottomMaterialArray {
             bottomHeights.append(Double(material.position.y) + 30.0)
         }
-        labels.zPosition = 2
-        massLabel.text = String(bottomMass)
+        labels.zPosition = 5
+        scoreLabel.text = String(bottomStrength * Int(bottomHeights.max() ?? 0) / bottomCost)
         strengthLabel.text = String(bottomStrength)
         costLabel.text = String(bottomCost)
-        heightLabel.text = String(Int(bottomHeights.max()!))
+        heightLabel.text = String(Int(bottomHeights.max() ?? 0))
         for material in top {
             print(material.toString())
-            topMass = topMass + material.mass
             topCost = topCost +  material.cost
             if material.weak.contains(gameWeather) {
                 topStrength = topStrength + material.strength / 2
@@ -315,11 +313,11 @@ class GameScene: SKScene {
         for material in topMaterialArray {
             topHeights.append(1364 - Double(material.position.y))
         }
-        labels2.zPosition = 2
-        massLabel2.text = String(topMass)
+        labels2.zPosition = 5
+        scoreLabel2.text = String(topStrength * Int(topHeights.max() ?? 0) / bottomCost)
         strengthLabel2.text = String(topStrength)
         costLabel2.text = String(topCost)
-        heightLabel2.text = String(Int(topHeights.max()!))
+        heightLabel2.text = String(Int(topHeights.max() ?? 0))
     }
     
     func callWind() {
@@ -526,12 +524,12 @@ class GameScene: SKScene {
         for material in bottomMaterialArray {
             material.physicsBody?.applyForce(CGVector(dx: 0, dy: -250))
         }
-        if frames == 900 {
+        if frames == 1100 {
             warning.zPosition = 3
             warning2.zPosition = 3
 //            run(SKAction.playSoundFileNamed("sfx_alert", waitForCompletion: false))
         }
-        if frames == 1000 {
+        if frames == 1200 {
             self.isUserInteractionEnabled = true
             let num = Int(arc4random_uniform(UInt32(6)))
             switch num {
@@ -553,7 +551,7 @@ class GameScene: SKScene {
             }
             print(num)
         }
-        if frames == 1700 {
+        if frames == 2000 {
             scoring(gameWeather: weather)
             self.isUserInteractionEnabled = true
         }

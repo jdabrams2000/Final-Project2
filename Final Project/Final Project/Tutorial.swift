@@ -18,20 +18,45 @@ class Tutorial : SKScene {
     var sample: SKSpriteNode!
     var stone: SKSpriteNode!
     var stoneIcon: MSButtonNode!
+    var brickIcon: MSButtonNode!
+    var thatchIcon: MSButtonNode!
+    var iceIcon: MSButtonNode!
+    var marbleIcon: MSButtonNode!
+    var copperIcon: MSButtonNode!
     var done: MSButtonNode!
     var play: MSButtonNode!
-    var textArray = ["Hello, you must be the ace architect", "You must build the strongest, tallest and cheapest", "The table list information about avaliable materials", "Now, let's try using the materials", "Press the stone icon"]
+    var back: MSButtonNode!
+    var textArray = ["Hello, you must be the ace architect", "Build the strongest, tallest and cheapest towers", "The table list information about avaliable materials", "Now, let's try using the materials", "Press the stone icon"]
     
     override func didMove(to view: SKView) {
         label = childNode(withName: "label") as! SKLabelNode
         table = childNode(withName: "table") as! SKSpriteNode
-        sample = childNode(withName: "sample") as! SKSpriteNode
         stone = childNode(withName: "stone") as! SKSpriteNode
         stoneIcon = childNode(withName: "//stoneIcon") as! MSButtonNode
         stoneIcon.selectedHandler = {
             self.bool = true
             self.stone.position.x = 300
             self.stone.position.y = 300
+        }
+        brickIcon = childNode(withName: "//brickIcon") as! MSButtonNode
+        brickIcon.selectedHandler = {
+            
+        }
+        thatchIcon = childNode(withName: "//thatchIcon") as! MSButtonNode
+        thatchIcon.selectedHandler = {
+            
+        }
+        iceIcon = childNode(withName: "//iceIcon") as! MSButtonNode
+        iceIcon.selectedHandler = {
+            
+        }
+        marbleIcon = childNode(withName: "//marbleIcon") as! MSButtonNode
+        marbleIcon.selectedHandler = {
+            
+        }
+        copperIcon = childNode(withName: "//copperIcon") as! MSButtonNode
+        copperIcon.selectedHandler = {
+            
         }
         done = childNode(withName: "done") as! MSButtonNode
         done.selectedHandler = {
@@ -41,6 +66,12 @@ class Tutorial : SKScene {
         play.selectedHandler = {
             if self.textIndex <= self.textArray.count - 2 {
                 self.textIndex = self.textIndex + 1
+            }
+        }
+        back = childNode(withName: "back") as! MSButtonNode
+        back.selectedHandler = {
+            if self.textIndex <= 0 {
+                self.textIndex = self.textIndex - 1
             }
         }
     }
