@@ -13,8 +13,14 @@ class Tutorial : SKScene {
     var frames = 0
     var textIndex = -1
     var bool = false
+    var labels: SKLabelNode!
+    var materialLabel: SKLabelNode!
+    var strengthLabel: SKLabelNode!
+    var costLabel: SKLabelNode!
+    var weakLabel: SKLabelNode!
+    var resLabel: SKLabelNode!
+    
     var label: SKLabelNode!
-    var table: SKSpriteNode!
     var sample: SKSpriteNode!
     var stone: SKSpriteNode!
     var stoneIcon: MSButtonNode!
@@ -26,37 +32,71 @@ class Tutorial : SKScene {
     var done: MSButtonNode!
     var play: MSButtonNode!
     var back: MSButtonNode!
-    var textArray = ["Hello, you must be the ace architect", "Build the strongest, tallest and cheapest towers", "The table list information about avaliable materials", "Now, let's try using the materials", "Press the stone icon"]
+    var textArray = ["Hello, you must be the ace architect", "Build the strongest, tallest and cheapest tower", "", "To learn more info, press the buttons on the sidebar"]
     
     override func didMove(to view: SKView) {
+        labels = childNode(withName: "labels") as! SKLabelNode
+        materialLabel = childNode(withName: "//materialLabel") as! SKLabelNode
+        strengthLabel = childNode(withName: "//strengthLabel") as! SKLabelNode
+        costLabel = childNode(withName: "//costLabel") as! SKLabelNode
+        weakLabel = childNode(withName: "//weakLabel") as! SKLabelNode
+        resLabel = childNode(withName: "//resLabel") as! SKLabelNode
         label = childNode(withName: "label") as! SKLabelNode
-        table = childNode(withName: "table") as! SKSpriteNode
         stone = childNode(withName: "stone") as! SKSpriteNode
         stoneIcon = childNode(withName: "//stoneIcon") as! MSButtonNode
         stoneIcon.selectedHandler = {
+            self.labels.zPosition = 3
+            self.materialLabel.text = "Stone"
+            self.strengthLabel.text = "40"
+            self.costLabel.text = "40"
+            self.weakLabel.text = "Acid, Ground"
+            self.resLabel.text = "Wind"
             self.bool = true
             self.stone.position.x = 300
             self.stone.position.y = 300
         }
         brickIcon = childNode(withName: "//brickIcon") as! MSButtonNode
         brickIcon.selectedHandler = {
-            
+            self.labels.zPosition = 3
+            self.materialLabel.text = "Brick"
+            self.strengthLabel.text = "55"
+            self.costLabel.text = "20"
+            self.weakLabel.text = "Ground"
+            self.resLabel.text = "Wind"
         }
         thatchIcon = childNode(withName: "//thatchIcon") as! MSButtonNode
         thatchIcon.selectedHandler = {
-            
+            self.labels.zPosition = 3
+            self.materialLabel.text = "Thatch"
+            self.strengthLabel.text = "35"
+            self.costLabel.text = "50"
+            self.weakLabel.text = "Bug, Acid"
+            self.resLabel.text = "Water, Ground"
         }
         iceIcon = childNode(withName: "//iceIcon") as! MSButtonNode
         iceIcon.selectedHandler = {
-            
+            self.labels.zPosition = 3
+            self.materialLabel.text = "Ice"
+            self.strengthLabel.text = "30"
+            self.costLabel.text = "35"
+            self.resLabel.text = "Acid, Water, Bug"
         }
         marbleIcon = childNode(withName: "//marbleIcon") as! MSButtonNode
         marbleIcon.selectedHandler = {
-            
+            self.labels.zPosition = 3
+            self.materialLabel.text = "Marble"
+            self.strengthLabel.text = "45"
+            self.costLabel.text = "45"
+            self.weakLabel.text = "Water, Acid"
         }
         copperIcon = childNode(withName: "//copperIcon") as! MSButtonNode
         copperIcon.selectedHandler = {
-            
+            self.labels.zPosition = 3
+            self.materialLabel.text = "Copper"
+            self.strengthLabel.text = "70"
+            self.costLabel.text = "70"
+            self.weakLabel.text = "Water, Acid"
+            self.resLabel.text = "Bug, Ground"
         }
         done = childNode(withName: "done") as! MSButtonNode
         done.selectedHandler = {
@@ -124,9 +164,6 @@ class Tutorial : SKScene {
         }
         if textIndex >= 0 && bool == false {
             self.label.text = textArray[textIndex]
-        }
-        if textIndex > 1 {
-            table.zPosition = 4
         }
     }
 }
