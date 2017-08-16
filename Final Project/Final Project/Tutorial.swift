@@ -32,7 +32,7 @@ class Tutorial : SKScene {
     var done: MSButtonNode!
     var play: MSButtonNode!
     var back: MSButtonNode!
-    var textArray = ["Hello, you must be the ace architect", "Build the strongest, tallest and cheapest tower", "", "To learn more info, press the buttons on the sidebar"]
+    var textArray = ["Hello, you must be the ace architect", "Build the strongest, tallest and cheapest tower", "To learn more info, press the buttons on the sidebar"]
     
     override func didMove(to view: SKView) {
         labels = childNode(withName: "labels") as! SKLabelNode
@@ -52,8 +52,6 @@ class Tutorial : SKScene {
             self.weakLabel.text = "Acid, Ground"
             self.resLabel.text = "Wind"
             self.bool = true
-            self.stone.position.x = 300
-            self.stone.position.y = 300
         }
         brickIcon = childNode(withName: "//brickIcon") as! MSButtonNode
         brickIcon.selectedHandler = {
@@ -63,6 +61,7 @@ class Tutorial : SKScene {
             self.costLabel.text = "20"
             self.weakLabel.text = "Ground"
             self.resLabel.text = "Wind"
+            self.bool = true
         }
         thatchIcon = childNode(withName: "//thatchIcon") as! MSButtonNode
         thatchIcon.selectedHandler = {
@@ -72,6 +71,7 @@ class Tutorial : SKScene {
             self.costLabel.text = "50"
             self.weakLabel.text = "Bug, Acid"
             self.resLabel.text = "Water, Ground"
+            self.bool = true
         }
         iceIcon = childNode(withName: "//iceIcon") as! MSButtonNode
         iceIcon.selectedHandler = {
@@ -79,7 +79,9 @@ class Tutorial : SKScene {
             self.materialLabel.text = "Ice"
             self.strengthLabel.text = "30"
             self.costLabel.text = "35"
+            self.weakLabel.text = ""
             self.resLabel.text = "Acid, Water, Bug"
+            self.bool = true
         }
         marbleIcon = childNode(withName: "//marbleIcon") as! MSButtonNode
         marbleIcon.selectedHandler = {
@@ -88,6 +90,8 @@ class Tutorial : SKScene {
             self.strengthLabel.text = "45"
             self.costLabel.text = "45"
             self.weakLabel.text = "Water, Acid"
+            self.resLabel.text = ""
+            self.bool = true
         }
         copperIcon = childNode(withName: "//copperIcon") as! MSButtonNode
         copperIcon.selectedHandler = {
@@ -97,6 +101,7 @@ class Tutorial : SKScene {
             self.costLabel.text = "70"
             self.weakLabel.text = "Water, Acid"
             self.resLabel.text = "Bug, Ground"
+            self.bool = true
         }
         done = childNode(withName: "done") as! MSButtonNode
         done.selectedHandler = {
@@ -152,15 +157,15 @@ class Tutorial : SKScene {
     
     override func update(_ currentTime: TimeInterval) {
         frames = frames + 1
-        if stone.position.x == 300.0 {
+        if bool == true {
             label.text = "Good. Press the button when ready, but WAIT!"
-            done.zPosition = 2
+            done.zPosition = 3
             DispatchQueue.main.asyncAfter(deadline: .now() + 3.0) {
                 self.label.text = "You can drag the blocks anyway you see fit, limit is 15"
             }
         }
         if frames == 1 {
-            self.label.text = "Press the green button to advance through the text"
+            self.label.text = "Press the green buttons to advance through the text"
         }
         if textIndex >= 0 && bool == false {
             self.label.text = textArray[textIndex]
