@@ -356,7 +356,7 @@ class GameScene: SKScene {
         print("Tornado")
         tornado.zPosition = 4
         DispatchQueue.main.asyncAfter(deadline: .now() + 2.0) {
-            self.tornado.zPosition = -2
+            self.tornado.zPosition = -3
             let tornadoBottom = SKFieldNode.vortexField()
             tornadoBottom.position.x = 375
             tornadoBottom.position.y = 333.5
@@ -383,7 +383,7 @@ class GameScene: SKScene {
         swarmBottom.strength = 300
         self.addChild(swarmBottom)
         DispatchQueue.main.asyncAfter(deadline: .now() + 3.0) {
-            self.swarm.zPosition = -2
+            self.swarm.zPosition = -3
             swarmBottom.strength = 0
             swarmBottom.position.x = -1125
             swarmBottom.position.y = 1000
@@ -402,7 +402,7 @@ class GameScene: SKScene {
         bottomWater.strength = 150
         self.addChild(bottomWater)
         DispatchQueue.main.asyncAfter(deadline: .now() + 6.0) {
-            self.tsunami.zPosition = -2
+            self.tsunami.zPosition = -3
             bottomWater.strength = 0
         }
     }
@@ -411,7 +411,7 @@ class GameScene: SKScene {
         print("Acid")
         acid.zPosition = 4
         DispatchQueue.main.asyncAfter(deadline: .now() + 3.0) {
-            self.acid.zPosition = -2
+            self.acid.zPosition = -3
             var removed: [SKNode] = []
             if self.bottomMaterialArray.count != 0 {
                 let bottomIndex = Int(arc4random_uniform(UInt32(self.bottomMaterialArray.count)))
@@ -435,7 +435,7 @@ class GameScene: SKScene {
         ground.strength = 100
         self.addChild(ground)
         DispatchQueue.main.asyncAfter(deadline: .now() + 3.0) {
-            self.earthquake.zPosition = -2
+            self.earthquake.zPosition = -3
             ground.strength = 0
             ground.position.y = 1000
             ground.strength = 100
@@ -567,6 +567,8 @@ class GameScene: SKScene {
             winnerTop.zPosition = -3
         }
         if frames == 1200 {
+            warning.zPosition = -3
+            warning2.zPosition = -3
             self.isUserInteractionEnabled = false
             let num = Int(arc4random_uniform(UInt32(6)))
             switch num {
