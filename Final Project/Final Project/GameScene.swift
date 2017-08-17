@@ -25,6 +25,10 @@ class GameScene: SKScene {
     var strengthLabel2: SKLabelNode!
     var costLabel2: SKLabelNode!
     var heightLabel2: SKLabelNode!
+    var winnerTop: SKSpriteNode!
+    var winnerBottom: SKSpriteNode!
+    var loserTop: SKSpriteNode!
+    var loserBottom: SKSpriteNode!
     
     var bottomHeights: [Double] = []
     var bottomMass = 0
@@ -76,6 +80,11 @@ class GameScene: SKScene {
     var restartButton: MSButtonNode!
     
     override func didMove(to view: SKView) {
+        self.view?.showsPhysics = false
+        winnerTop = childNode(withName: "winnerTop") as! SKSpriteNode
+        winnerBottom = childNode(withName: "winnerBottom") as! SKSpriteNode
+        loserTop = childNode(withName: "loserTop") as! SKSpriteNode
+        loserBottom = childNode(withName: "loserBottom") as! SKSpriteNode
         tornado = childNode(withName: "tornado") as! SKSpriteNode
         acid = childNode(withName: "acid") as! SKSpriteNode
         tsunami = childNode(withName: "tsunami") as! SKSpriteNode
@@ -292,11 +301,15 @@ class GameScene: SKScene {
         for material in bottomMaterialArray {
             bottomHeights.append(Double(material.position.y) + 30.0)
         }
-        labels.zPosition = 5
-        scoreLabel.text = String(bottomStrength * Int(bottomHeights.max() ?? 0) / bottomCost)
+        labels.zPosition = 51
         strengthLabel.text = String(bottomStrength)
         costLabel.text = String(bottomCost)
         heightLabel.text = String(Int(bottomHeights.max() ?? 0))
+        if bottomCost == 0 {
+            bottomCost = 1
+        }
+        let finalLower = bottomStrength * Int(bottomHeights.max() ?? 0) / bottomCost
+        scoreLabel.text = String(finalLower)
         for material in top {
             print(material.toString())
             topCost = topCost +  material.cost
@@ -314,10 +327,29 @@ class GameScene: SKScene {
             topHeights.append(1364 - Double(material.position.y))
         }
         labels2.zPosition = 5
-        scoreLabel2.text = String(topStrength * Int(topHeights.max() ?? 0) / bottomCost)
         strengthLabel2.text = String(topStrength)
         costLabel2.text = String(topCost)
         heightLabel2.text = String(Int(topHeights.max() ?? 0))
+        if topCost == 0 {
+            topCost = 1
+        }
+        let finalTop = topStrength * Int(topHeights.max() ?? 0) / topCost
+        scoreLabel2.text = String(finalTop)
+        restartButton.zPosition = 2
+        if finalLower > finalTop {
+            winnerBottom.zPosition = 3
+            loserTop.zPosition = 3
+        }
+        else if finalTop > finalLower {
+            winnerTop.zPosition = 3
+            loserBottom.zPosition = 3
+        }
+        else {
+            winnerTop.zPosition = 3
+            winnerBottom.zPosition = 3
+        }
+        print(labels.zPosition)
+        print(winnerBottom.zPosition)
     }
     
     func callWind() {
@@ -525,12 +557,17 @@ class GameScene: SKScene {
             material.physicsBody?.applyForce(CGVector(dx: 0, dy: -250))
         }
         if frames == 1100 {
-            warning.zPosition = 3
-            warning2.zPosition = 3
+            warning.zPosition = 1
+            warning2.zPosition = 1
 //            run(SKAction.playSoundFileNamed("sfx_alert", waitForCompletion: false))
         }
+        if frames == 1 {
+            restartButton.zPosition = -3
+            winnerBottom.zPosition = -3
+            winnerTop.zPosition = -3
+        }
         if frames == 1200 {
-            self.isUserInteractionEnabled = true
+            self.isUserInteractionEnabled = false
             let num = Int(arc4random_uniform(UInt32(6)))
             switch num {
             case 0:

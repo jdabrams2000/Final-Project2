@@ -115,7 +115,7 @@ class Tutorial : SKScene {
         }
         back = childNode(withName: "back") as! MSButtonNode
         back.selectedHandler = {
-            if self.textIndex <= 0 {
+            if self.textIndex > 0 {
                 self.textIndex = self.textIndex - 1
             }
         }
@@ -158,16 +158,17 @@ class Tutorial : SKScene {
     override func update(_ currentTime: TimeInterval) {
         frames = frames + 1
         if bool == true {
-            label.text = "Good. Press the button when ready, but WAIT!"
+            done.zPosition = 2
+        }
+        if done.zPosition == 2 {
+            textArray.append("Good. Press the button when ready, but")
+            textArray.append("You can drag the blocks anyway you see fit, limit is 15")
             done.zPosition = 3
-            DispatchQueue.main.asyncAfter(deadline: .now() + 3.0) {
-                self.label.text = "You can drag the blocks anyway you see fit, limit is 15"
-            }
         }
         if frames == 1 {
             self.label.text = "Press the green buttons to advance through the text"
         }
-        if textIndex >= 0 && bool == false {
+        if textIndex >= 0 {
             self.label.text = textArray[textIndex]
         }
     }
