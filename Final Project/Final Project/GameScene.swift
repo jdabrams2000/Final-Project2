@@ -115,7 +115,7 @@ class GameScene: SKScene {
                 return
             }
             
-            scene.scaleMode = .aspectFill
+            scene.scaleMode = .aspectFit
             view.presentScene(scene)
         }
         stoneIcon = childNode(withName: "//stoneIcon") as! MSButtonNode
@@ -262,26 +262,6 @@ class GameScene: SKScene {
                 self.top.append(Material(material: self.materials[5]))
             }
         }
-        
-//        // Get label node from scene and store it for use later
-//        self.label = self.childNode(withName: "//helloLabel") as? SKLabelNode
-//        if let label = self.label {
-//            label.alpha = 0.0
-//            label.run(SKAction.fadeIn(withDuration: 2.0))
-//        }
-//        
-//        // Create shape node to use during mouse interaction
-//        let w = (self.size.width + self.size.height) * 0.05
-//        self.spinnyNode = SKShapeNode.init(rectOf: CGSize.init(width: w, height: w), cornerRadius: w * 0.3)
-//        
-//        if let spinnyNode = self.spinnyNode {
-//            spinnyNode.lineWidth = 2.5
-//            
-//            spinnyNode.run(SKAction.repeatForever(SKAction.rotate(byAngle: CGFloat(Double.pi), duration: 1)))
-//            spinnyNode.run(SKAction.sequence([SKAction.wait(forDuration: 0.5),
-//                                              SKAction.fadeOut(withDuration: 0.5),
-//                                              SKAction.removeFromParent()]))
-//       }
     }
     
     func scoring(gameWeather: WeatherType) {
@@ -445,38 +425,12 @@ class GameScene: SKScene {
         }
     }
     
-//    func callAntiGravity() {
-//        print("AntiGravity")
-//        let antiGravity = SKFieldNode.vortexField()
-//        antiGravity.position.x = 375
-//        antiGravity.position.y = 333.5
-//        antiGravity.strength = 50
-//        self.addChild(antiGravity)
-//        let antiGravity2 = SKFieldNode.vortexField()
-//        antiGravity2.position.x = 375
-//        antiGravity2.position.y = 1000.5
-//        antiGravity2.strength = 50
-//        self.addChild(antiGravity2)
-//        DispatchQueue.main.asyncAfter(deadline: .now() + 3.0) {
-//            antiGravity.strength = 0
-//        }
-//    }
-    
-//    func callSpring() {
-//        print("Spring")
-//        spring.strength = 100
-//        self.addChild(spring)
-//        DispatchQueue.main.asyncAfter(deadline: .now() + 3.0) {
-//            self.spring.strength = 0
-//        }
-//    }
-    
     
     class func loadScene() -> GameScene? {
         guard let scene = GameScene(fileNamed: "GameScene") else {
             return nil
         }
-        scene.scaleMode = .aspectFill
+        scene.scaleMode = .aspectFit
         return scene
     }
     
