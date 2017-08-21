@@ -315,7 +315,7 @@ class GameScene: SKScene {
         }
         let finalTop = topStrength * Int(topHeights.max() ?? 0) / topCost
         scoreLabel2.text = String(finalTop)
-        restartButton.zPosition = 2
+        restartButton.zPosition = 10
         if finalLower > finalTop {
             winnerBottom.zPosition = 3
             loserTop.zPosition = 3
