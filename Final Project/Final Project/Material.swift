@@ -28,6 +28,7 @@ enum WeatherType {
     }
 }
 
+
 var masses = [45, 40, 20, 30, 40, 45]
 var strengths = [60, 55, 35, 30, 45, 70]
 var costs = [40, 20, 50, 35, 45, 70]

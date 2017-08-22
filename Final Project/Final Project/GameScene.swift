@@ -10,6 +10,7 @@ import SpriteKit
 import GameplayKit
 
 class GameScene: SKScene {
+    let materials = MaterialType.allValues()
     
     private var spinnyNode : SKShapeNode?
     
@@ -45,10 +46,12 @@ class GameScene: SKScene {
     var topMaterialArray: [SKNode] = []
     var bottom: [Material] = []
     var top: [Material] = []
-    let materials = MaterialType.allValues()
     
     var bottomCount = 15
     var topCount = 15
+    
+    var infoLower: MSButtonNode!
+    var infoUpper: MSButtonNode!
     
     var stoneIcon: MSButtonNode!
     var brickIcon: MSButtonNode!
@@ -261,6 +264,14 @@ class GameScene: SKScene {
                 self.topCount = self.topCount - 1
                 self.top.append(Material(material: self.materials[5]))
             }
+        }
+        infoLower = childNode(withName: "infoLower") as! MSButtonNode
+        infoLower.selectedHandler = {
+            
+        }
+        infoUpper = childNode(withName: "infoUpper") as! MSButtonNode
+        infoUpper.selectedHandler = {
+            
         }
     }
     

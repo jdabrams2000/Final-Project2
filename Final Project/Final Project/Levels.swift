@@ -8,19 +8,21 @@
 
 import Foundation
 
-var level_1 = Levels(targetScore: 300, costMax: 750, weatherHazard: WeatherType.wind, material1: Material(material: MaterialType.brick), material2: Material(material: MaterialType.stone), material3: nil)
-var level_2 = Levels(targetScore: 300, costMax: 500, weatherHazard: WeatherType.ground, material1: Material(material: MaterialType.brick), material2: Material(material: MaterialType.stone), material3: Material(material: MaterialType.marble))
-var level_3 = Levels(targetScore: 300, costMax: 500, weatherHazard: WeatherType.water, material1: Material(material: MaterialType.ice), material2: Material(material: MaterialType.stone), material3: Material(material: MaterialType.marble))
+var level_1 = Levels(targetScore: 500, costMax: 500, weatherHazard: WeatherType.wind, material1: MaterialType.brick, material2: MaterialType.stone, material3: MaterialType.stone)
+var level_2 = Levels(targetScore: 300, costMax: 500, weatherHazard: WeatherType.ground, material1: MaterialType.brick, material2: MaterialType.stone, material3: MaterialType.marble)
+var level_3 = Levels(targetScore: 300, costMax: 500, weatherHazard: WeatherType.water, material1: MaterialType.ice, material2: MaterialType.stone, material3: MaterialType.marble)
+
+var levelArray = [level_1, level_2, level_3]
 
 struct Levels {
     var targetScore: Int
     var costMax: Int
     var weatherHazard: WeatherType
-    var material1: Material
-    var material2: Material?
-    var material3: Material?
+    var material1: MaterialType
+    var material2: MaterialType
+    var material3: MaterialType
     
-    init(targetScore: Int, costMax: Int, weatherHazard: WeatherType, material1: Material, material2: Material?, material3: Material?) {
+    init(targetScore: Int, costMax: Int, weatherHazard: WeatherType, material1: MaterialType, material2: MaterialType, material3: MaterialType) {
         self.targetScore = targetScore
         self.costMax = costMax
         self.weatherHazard = weatherHazard
@@ -31,7 +33,7 @@ struct Levels {
 }
 
 /* Level:   1                       2                       3
- Materials: Brick, Stone, Copper    Stone, Brick, Marble    Ice, Stone, Marble
+ Materials: Brick, Stone            Stone, Brick, Marble    Ice, Stone, Marble
  Target:    300                     300                     300
  Cost:      750                     500                     500
  Weather:   Tornado                 Earthquake              Tsunami
