@@ -19,6 +19,7 @@ class MainMenu: SKScene {
     
     var buttonParty: MSButtonNode!
     var tutorialButton: MSButtonNode!
+    var buttonSingle: MSButtonNode!
     var tutorialFinished = defaults.bool(forKey: "Tutorial") ?? false
     
     override func didMove(to view: SKView) {
@@ -37,6 +38,11 @@ class MainMenu: SKScene {
         tutorialButton.selectedHandler = { [unowned self] in
             self.loadTutorial()
         }
+        buttonSingle = childNode(withName: "buttonSingle") as! MSButtonNode
+        buttonSingle.state = .msButtonNodeStateActive
+        buttonSingle.selectedHandler = { [unowned self] in
+            self.loadSingle()
+        }
     }
     
     func isAppAlreadyLaunchedOnce() -> Bool {      
@@ -50,6 +56,49 @@ class MainMenu: SKScene {
         }
     }
 
+    func loadSingle() {
+        /* 1) Grab reference to our SpriteKit view */
+        defaults.set(tutorialFinished, forKey: "Tutorial")
+        
+        guard let skView = self.view as SKView! else {
+            print("Could not get Skview")
+            return
+        }
+        
+        if isAppAlreadyLaunchedOnce() == true {
+            guard let scene = GameScene(fileNamed: "levelSelect") else {
+                print("Could not load GameScene with level 1")
+                return
+            }
+            scene.scaleMode = .aspectFit
+            
+            /* Show debug */
+            skView.showsPhysics = false
+            skView.showsDrawCount = false
+            skView.showsFPS = false
+            
+            /* 4) Start game scene */
+            skView.presentScene(scene)
+            
+        }
+        else {
+            guard let scene = GameScene(fileNamed: "Tutorial") else {
+                print("Could not load GameScene with level 1")
+                return
+            }
+            scene.scaleMode = .aspectFit
+            
+            /* Show debug */
+            skView.showsPhysics = false
+            skView.showsDrawCount = false
+            skView.showsFPS = false
+            
+            /* 4) Start game scene */
+            skView.presentScene(scene)
+            
+        }
+    }
+    
     func loadGame() {
         /* 1) Grab reference to our SpriteKit view */
         defaults.set(tutorialFinished, forKey: "Tutorial")

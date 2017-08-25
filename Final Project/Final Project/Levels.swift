@@ -8,9 +8,9 @@
 
 import Foundation
 
-var level_1 = Levels(targetScore: 500, costMax: 500, weatherHazard: WeatherType.wind, material1: MaterialType.brick, material2: MaterialType.stone, material3: MaterialType.stone)
-var level_2 = Levels(targetScore: 300, costMax: 500, weatherHazard: WeatherType.ground, material1: MaterialType.brick, material2: MaterialType.stone, material3: MaterialType.marble)
-var level_3 = Levels(targetScore: 300, costMax: 500, weatherHazard: WeatherType.water, material1: MaterialType.ice, material2: MaterialType.stone, material3: MaterialType.marble)
+let level_1 = Levels(targetScore: 500, costMax: 500, weatherHazard: WeatherType.wind, material1: MaterialType.brick, material2: MaterialType.stone, material3: MaterialType.stone)
+let level_2 = Levels(targetScore: 300, costMax: 500, weatherHazard: WeatherType.ground, material1: MaterialType.brick, material2: MaterialType.stone, material3: MaterialType.marble)
+let level_3 = Levels(targetScore: 300, costMax: 500, weatherHazard: WeatherType.water, material1: MaterialType.ice, material2: MaterialType.stone, material3: MaterialType.marble)
 
 var levelArray = [level_1, level_2, level_3]
 

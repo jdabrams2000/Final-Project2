@@ -14,6 +14,7 @@ enum MaterialType {
     static func allValues() -> [MaterialType] {
         return [stone, brick, thatch, ice, marble, copper]
     }
+    
 }
 
 enum WeatherType {
