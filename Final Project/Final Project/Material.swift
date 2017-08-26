@@ -45,7 +45,7 @@ class Material {
         let index = MaterialType.allValues().index(of: material)!
         self.materialType = material
         self.mass = masses[index]
-        self.strength = masses[index]
+        self.strength = strengths[index]
         self.cost = costs[index]
         self.weak = WeatherType.weak()[index]
         self.resist = WeatherType.resist()[index]

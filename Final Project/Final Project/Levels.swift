@@ -9,10 +9,15 @@
 import Foundation
 
 let level_1 = Levels(targetScore: 500, costMax: 500, weatherHazard: WeatherType.wind, material1: MaterialType.brick, material2: MaterialType.stone, material3: MaterialType.stone)
-let level_2 = Levels(targetScore: 300, costMax: 500, weatherHazard: WeatherType.ground, material1: MaterialType.brick, material2: MaterialType.stone, material3: MaterialType.marble)
-let level_3 = Levels(targetScore: 300, costMax: 500, weatherHazard: WeatherType.water, material1: MaterialType.ice, material2: MaterialType.stone, material3: MaterialType.marble)
+let level_2 = Levels(targetScore: 350, costMax: 550, weatherHazard: WeatherType.ground, material1: MaterialType.brick, material2: MaterialType.stone, material3: MaterialType.marble)
+let level_3 = Levels(targetScore: 700, costMax: 700, weatherHazard: WeatherType.water, material1: MaterialType.ice, material2: MaterialType.stone, material3: MaterialType.thatch)
+let level_4 = Levels(targetScore: 620, costMax: 800, weatherHazard: WeatherType.bug, material1: MaterialType.ice, material2: MaterialType.copper, material3: MaterialType.marble)
+let level_5 = Levels(targetScore: 500, costMax: 830, weatherHazard: WeatherType.bug, material1: MaterialType.marble, material2: MaterialType.copper, material3: MaterialType.thatch)
+let level_6 = Levels(targetScore: 350, costMax: 800, weatherHazard: WeatherType.wind, material1: MaterialType.ice, material2: MaterialType.copper, material3: MaterialType.thatch)
+let level_7 = Levels(targetScore: 600, costMax: 700, weatherHazard: WeatherType.ground, material1: MaterialType.brick, material2: MaterialType.stone, material3: MaterialType.copper)
+let level_8 = Levels(targetScore: 700, costMax: 800, weatherHazard: WeatherType.water, material1: MaterialType.marble, material2: MaterialType.copper, material3: MaterialType.thatch)
 
-var levelArray = [level_1, level_2, level_3]
+var levelArray = [level_1, level_2, level_3, level_4, level_5, level_6,level_7, level_8]
 
 struct Levels {
     var targetScore: Int

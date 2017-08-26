@@ -60,7 +60,69 @@ class SinglePlayer: SKScene {
     var earthquake: SKSpriteNode!
     var swarm: SKSpriteNode!
     
+    var failureLabel: SKLabelNode!
+    var retryButton: MSButtonNode!
+    var successLabel: SKLabelNode!
+    var nextButton: MSButtonNode!
+    var comingSoon: SKSpriteNode!
+    
     override func didMove(to view: SKView) {
+        comingSoon = childNode(withName: "comingSoon") as! SKSpriteNode
+        failureLabel = childNode(withName: "failure") as! SKLabelNode
+        retryButton = childNode(withName: "//retryButton") as! MSButtonNode
+        retryButton.selectedHandler = { [unowned self] in
+            guard let skView = self.view as SKView! else {
+                print("Could not get Skview")
+                return
+            }
+            
+            /* 2) Load Game scene */
+            guard let scene = GameScene(fileNamed: "SinglePlayer") else {
+                print("Could not load GameScene with level 1")
+                return
+            }
+            
+            /* 3) Ensure correct aspect mode */
+            scene.scaleMode = .aspectFit
+            
+            /* Show debug */
+            skView.showsPhysics = false
+            skView.showsDrawCount = false
+            skView.showsFPS = false
+            
+            /* 4) Start game scene */
+            skView.presentScene(scene)
+        }
+        successLabel = childNode(withName: "success") as! SKLabelNode
+        nextButton = childNode(withName: "//nextButton") as! MSButtonNode
+        nextButton.selectedHandler = { [unowned self] in
+            if levelNum < levelArray.count {
+                guard let skView = self.view as SKView! else {
+                    print("Could not get Skview")
+                    return
+                }
+                
+                /* 2) Load Game scene */
+                guard let scene = GameScene(fileNamed: "SinglePlayer") else {
+                    print("Could not load GameScene with level 1")
+                    return
+                }
+                
+                /* 3) Ensure correct aspect mode */
+                scene.scaleMode = .aspectFit
+                
+                /* Show debug */
+                skView.showsPhysics = false
+                skView.showsDrawCount = false
+                skView.showsFPS = false
+                
+                /* 4) Start game scene */
+                skView.presentScene(scene)
+            }
+            else {
+                self.comingSoon.zPosition = 10
+            }
+        }
         scores = childNode(withName: "scores") as! SKSpriteNode
         objective = childNode(withName: "objective") as! SKSpriteNode
         scoreLabel = childNode(withName: "//scoreLabel") as! SKLabelNode
@@ -205,6 +267,9 @@ class SinglePlayer: SKScene {
         case MaterialType.ice:
             iceIcon.position.x = -200
             materialLabel1.text = "Ice"
+        case MaterialType.marble:
+            marbleIcon.position.x = -200
+            materialLabel1.text = "Marble"
         default:
             break
         }
@@ -212,17 +277,31 @@ class SinglePlayer: SKScene {
         case MaterialType.stone:
             stoneIcon.position.x = 0
             materialLabel2.text = "Stone"
+        case MaterialType.copper:
+            copperIcon.position.x = 0
+            materialLabel2.text = "Copper"
         default:
             break
         }
         switch level.material3 {
         case MaterialType.marble:
-            marbleIcon.position.x = 250
+            marbleIcon.position.x = 200
             materialLabel3.text = "Marble"
+        case MaterialType.thatch:
+            thatchIcon.position.x = 200
+            materialLabel3.text = "Thatch"
+        case MaterialType.copper:
+            copperIcon.position.x = 200
+            materialLabel3.text = "Copper"
         default:
             break
         }
     }
+
+    
+    //Mat 1     Brick, Ice, Marble
+    //Mat 2     Stone, Copper
+    //Mat 3     Marble, Thatch, Copper
     
     func callWeather(level: Levels) {
         switch level.weatherHazard {
@@ -245,6 +324,7 @@ class SinglePlayer: SKScene {
                 heights.append(Double(material.position.y) + 670.0)
             }
             for material in materialArray {
+                print(material.strength)
                 if material.weak.contains(level.weatherHazard) {
                     strength = strength + material.strength / 2
                 }
@@ -281,10 +361,11 @@ class SinglePlayer: SKScene {
         if levelNumReached < levelNum {
             saveLevelNumReached()
         }
+        successLabel.zPosition = 5
     }
     
     func fail() {
-        
+        failureLabel.zPosition = 5
     }
     
     func saveLevelNumReached() {
@@ -297,8 +378,8 @@ class SinglePlayer: SKScene {
         DispatchQueue.main.asyncAfter(deadline: .now() + 2.0) {
             self.tornado.zPosition = -3
             let tornadoBottom = SKFieldNode.vortexField()
-            tornadoBottom.position.x = 375
-            tornadoBottom.position.y = 667
+            tornadoBottom.position.x = 0
+            tornadoBottom.position.y = 0
             tornadoBottom.strength = 50
             self.addChild(tornadoBottom)
             DispatchQueue.main.asyncAfter(deadline: .now() + 3.0) {
@@ -321,7 +402,7 @@ class SinglePlayer: SKScene {
             swarmBottom.position.x = -1125
             swarmBottom.position.y = 1000
             swarmBottom.strength = 300
-            DispatchQueue.main.asyncAfter(deadline: .now() + 3.0) {
+            DispatchQueue.main.asyncAfter(deadline: .now() + 2.0) {
                 swarmBottom.strength = 0
             }
         }
@@ -332,9 +413,9 @@ class SinglePlayer: SKScene {
         let bottomWater = SKFieldNode.radialGravityField()
         bottomWater.position.x = 375
         bottomWater.position.y = 667
-        bottomWater.strength = 150
+        bottomWater.strength = 500
         self.addChild(bottomWater)
-        DispatchQueue.main.asyncAfter(deadline: .now() + 6.0) {
+        DispatchQueue.main.asyncAfter(deadline: .now() + 3.0) {
             self.tsunami.zPosition = -3
             bottomWater.strength = 0
         }
@@ -364,9 +445,9 @@ class SinglePlayer: SKScene {
         print("Earthquake")
         earthquake.zPosition = 4
         let ground = SKFieldNode.springField()
-        ground.position.x = 375
-        ground.position.y = 667
-        ground.strength = 100
+        ground.position.x = 0
+        ground.position.y = 0
+        ground.strength = 10
         self.addChild(ground)
         DispatchQueue.main.asyncAfter(deadline: .now() + 3.0) {
             self.earthquake.zPosition = -3
@@ -392,7 +473,7 @@ class SinglePlayer: SKScene {
     override func touchesMoved(_ touches: Set<UITouch>, with event: UIEvent?) {
         for t in touches {
             let node = atPoint(t.location(in: self))
-            if node.name == "stone" || node.name == "ice" || node.name == "brick" || node.name == "marble" {
+            if node.name == "stone" || node.name == "ice" || node.name == "brick" || node.name == "marble" || node.name == "copper" || node.name == "thatch" {
                 node.position = t.location(in: self)
             }
         }
@@ -403,11 +484,11 @@ class SinglePlayer: SKScene {
             print(levelNum)
             loadLevel(level: levelArray[levelNum])
         }
-        if frames == 1000 {
+        if frames == 1200 {
             self.isUserInteractionEnabled = false
             callWeather(level: levelArray[levelNum])
         }
-        if frames == 1400 {
+        if frames == 1700 {
             scoring(level: levelArray[levelNum])
             self.isUserInteractionEnabled = true
         }
